@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние статьи{% endblock %}
+
+{% block content %}
+
+	{% if latest %}
+		{% for i in latest %}
+		<a href="{% url 'tests:detail' i.id %}">{{i.test_title}}</a>
+		{% endfor %}
+	{% else %}
+		There is not any test.
+	{% endif %}
+
+{% endblock %}

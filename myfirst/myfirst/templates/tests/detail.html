@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{test.test_title}}{% endblock %}
+
+{% block content %}
+
+	<h2>{{test.test_title}}</h2>
+	<p>{{test.test_text}}</p>
+	<em>{{test.pub_date}}</em>
+
+	<hr>
+		{% if latest_comments %}
+			{% for i in latest_comments %}
+				<p>
+					<strong>{{i.author_name}}</strong>
+					<p>{{i.comment_text}}</p>
+				</p>
+			{% endfor %}
+		{% else %}
+			Комментарии не найдены. Станьте первым!
+		{% endif %}
+	<hr>
+
+	<form action="{% url 'tests:comment' test.id %}" method="POST">
+		{% csrf_token %}
+		
+		<input type="text" required placeholder="Ваше имя" name="name"><br>
+		<textarea name="text" required="" placeholder="Текст комментария" cols="30" rows="10"></textarea><br>
+		<button type="submit">Оставить комментарий</button>
+	</form>
+{% endblock %}
